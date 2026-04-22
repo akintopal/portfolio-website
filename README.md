@@ -9,4 +9,4 @@ This is my personal portfolio website where I showcase my projects and skills.
 - CSS
 - JavaScript
 
-🔗 Live Demo: https://akintofall-portfolio.netlify.app/
+🔗 Live Demo: https://akintopal-portfolio.netlify.app
