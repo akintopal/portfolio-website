@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akın Topal | Web Geliştirici Portfolyosu</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <style>
+        /* GENEL VE RESET STİLLERİ */
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            scroll-behavior: smooth;
+            font-family: "Poppins", sans-serif; 
+            border: none;
+            outline: none;
+        }
+        :root {
+            --bg-color: #080808;
+            --second-bg-color: #101010;
+            --text-color: #ffffff;
+            --main-color: #ea580c; /* Ana turuncu renk */
+        }
+        html {
+            font-size: 62.5%; 
+            overflow-x: hidden;
+        }
+        body{
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        section{
+            min-height: 100vh;
+            padding: 10rem 9% 2rem; 
+        }
+
+        /* HEADER */
+        .header{
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 2rem 9%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .logo{
+            font-size: 3rem;
+            color: var(--text-color);
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+        .logo:hover{
+            transform: scale(1.1);
+        }
+        .gradient-text{
+            background: linear-gradient(270deg, #df8908 10%, #ff1d15 100%);
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* NAVBAR */
+        .navbar a{
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-left: 4rem;
+            font-weight: 500;
+            transition: 0.3s ease-in-out;
+            border-bottom: 3px solid transparent;
+        }
+        .navbar a:hover,
+        .navbar a.active{
+            color: var(--main-color);
+            border-bottom: 3px solid var(--main-color);
+        }
+        #menu-icon{
+            font-size: 3.6rem;
+            color: var(--main-color);
+            cursor: pointer;
+            display: none;
+        }
+
+        /* GENEL BUTON STİLİ */
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 2.8rem;
+            background: var(--main-color);
+            border-radius: 4rem;
+            box-shadow: 0 0 1rem var(--main-color);
+            font-size: 1.6rem;
+            color: var(--second-bg-color);
+            letter-spacing: .1rem;
+            font-weight: 600;
+            transition: .5s ease;
+        }
+        .btn:hover {
+            box-shadow: none;
+        }
+        
+        /* HOME BÖLÜMÜ */
+        .home{
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            gap: 10rem;
+        }
+        .home-content h1{
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .home-content h3{
+            font-size: 3.5rem;
+            margin: 1rem 0;
+        }
+        .home-content p{
+            font-size: 1.6rem;
+        }
+        .home-img img{
+            width: 30vw; 
+            min-width: 280px;
+            aspect-ratio: 1/1; 
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--main-color);
+            transition: 0.4s ease-in-out;
+            animation: floatImage 4s ease-in-out infinite;
+        }
+        @keyframes floatImage {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-2.4rem); }
+            100% { transform: translateY(0); }
+        }
+
+        /* SOSYAL İKONLAR */
+        .social-icon a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 4rem;
+            height: 4rem;
+            background: transparent;
+            border: .2rem solid var(--main-color);
+            border-radius: 50%;
+            font-size: 2rem;
+            color: var(--main-color);
+            margin: 3rem 1.5rem 3rem 0;
+            transition: .5s ease;
+        }
+        .social-icon a:hover {
+            background: var(--main-color);
+            color: var(--second-bg-color);
+            box-shadow: 0 0 1rem var(--main-color);
+        }
+
+        /* ORTAK BAŞLIK STİLİ */
+        .heading {
+            text-align: center;
+            font-size: 4.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* HAKKIMDA BÖLÜMÜ */
+        .about {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10rem;
+            background: var(--second-bg-color);
+            flex-direction: column;
+            text-align: center;
+        }
+        .about-text h3 {
+            font-size: 2.6rem;
+        }
+        .about-text p {
+            font-size: 1.6rem;
+            margin: 2rem 0 3rem;
+            max-width: 800px;
+        }
+        
+        /* EĞİTİM VE DENEYİM BÖLÜMÜ (ZAMAN ÇİZELGESİ) */
+        .education {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: auto;
+            padding-bottom: 5rem;
+        }
+        .education .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .education .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: var(--second-bg-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .education .container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .education .container::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--main-color);
+            border: 4px solid var(--second-bg-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .education .left {
+            left: 0;
+        }
+        .education .right {
+            left: 50%;
+        }
+        .education .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--text-color);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--second-bg-color);
+        }
+        .education .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--text-color);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--second-bg-color) transparent transparent;
+        }
+        .education .right::after {
+            left: -13px;
+        }
+        .education .content {
+            padding: 20px 30px;
+            background: var(--second-bg-color);
+            position: relative;
+            border-radius: .8rem;
+            border: 2px solid var(--main-color);
+        }
+        .education .content .tag {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: .5rem;
+        }
+        .education .content .tag i {
+            margin-right: .5rem;
+            color: var(--main-color);
+        }
+        .education .content .decription {
+            font-size: 1.5rem;
+            color: #d3d3d3;
+        }
+
+        /* HİZMETLER BÖLÜMÜ */
+        .services h2 {
+            margin-bottom: 5rem;
+        }
+        .services-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .service-box {
+            flex: 1 1 30rem;
+            background: var(--second-bg-color);
+            padding: 3rem 2rem 4rem;
+            border-radius: 2rem;
+            text-align: center;
+            border: .2rem solid var(--bg-color);
+            transition: .5s ease;
+        }
+        .service-box:hover {
+            border-color: var(--main-color);
+            transform: translateY(-1rem);
+        }
+        .service-box i {
+            font-size: 7rem;
+            color: var(--main-color);
+        }
+        .service-box h3 {
+            font-size: 2.6rem;
+        }
+        .service-box p {
+            font-size: 1.6rem;
+            margin: 1rem 0 3rem;
+        }
+
+        /* PROJELER BÖLÜMÜ */
+        .projects {
+            background: var(--second-bg-color);
+        }
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        .project-box {
+            position: relative;
+            border-radius: 2rem;
+            box-shadow: 0 0 1rem var(--bg-color);
+            overflow: hidden;
+            display: flex;
+            height: 250px; /* Kartlara sabit yükseklik verelim */
+        }
+        .project-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: .5s ease;
+        }
+        .project-box:hover img {
+            transform: scale(1.1);
+        }
+        .project-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.1), var(--main-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0 4rem;
+            transform: translateY(100%);
+            transition: .5s ease;
+        }
+        .project-box:hover .project-layer {
+            transform: translateY(0);
+        }
+        .project-layer h4 {
+            font-size: 3rem;
+        }
+        .project-layer p {
+            font-size: 1.6rem;
+            margin: .3rem 0 1rem;
+        }
+        .project-layer a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 5rem;
+            height: 5rem;
+            background: var(--text-color);
+            border-radius: 50%;
+        }
+        .project-layer a i {
+            font-size: 2rem;
+            color: var(--second-bg-color);
+        }
+        
+        /* PROJE DETAY MODAL (POPUP) PENCERESİ STİLLERİ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: var(--second-bg-color);
+            padding: 3rem 4rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 700px;
+            position: relative;
+            border: 2px solid var(--main-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s ease-in-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 3.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+            line-height: 1;
+            z-index: 15;
+        }
+        .modal-close:hover {
+            color: var(--main-color);
+        }
+        #modal-single-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .modal-content h2 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--main-color);
+        }
+        .modal-content p {
+            font-size: 1.6rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        /* MODAL İÇİNDEKİ BEFORE & AFTER SLIDER STİLLERİ */
+        .before-after-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3; /* Resim oranını koru */
+            overflow: hidden;
+            cursor: col-resize;
+            border-radius: .8rem;
+            margin-bottom: 2rem;
+        }
+        .before-after-slider .before-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .before-after-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .before-after-slider .before-image-container img {
+            position: relative; 
+        }
+        .before-after-slider .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .before-after-slider .handle-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--main-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* İLETİŞİM BÖLÜMÜ */
+        .contact h2 {
+            margin-bottom: 3rem;
+        }
+        .contact form {
+            max-width: 70rem;
+            margin: 1rem auto;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .contact form .input-box {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .contact form .input-box input,
+        .contact form textarea {
+            width: 100%;
+            padding: 1.5rem;
+            font-size: 1.6rem;
+            color: var(--text-color);
+            background: var(--second-bg-color);
+            border-radius: .8rem;
+            margin: .7rem 0;
+        }
+        .contact form .input-box input {
+            width: 49%;
+        }
+        .contact form textarea {
+            resize: none;
+        }
+        .contact form .btn {
+            margin-top: 2rem;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 2rem 9%;
+            background: var(--second-bg-color);
+        }
+        .footer-text p {
+            font-size: 1.6rem;
+        }
+        .footer-iconTop a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: .8rem;
+            background: var(--main-color);
+            border-radius: .8rem;
+            transition: .5s ease;
+        }
+        .footer-iconTop a:hover {
+            box-shadow: 0 0 1rem var(--main-color);
+        }
+        .footer-iconTop a i {
+            font-size: 2.4rem;
+            color: var(--second-bg-color);
+        }
+
+        /* RESPONSIVE TASARIM MEDIA SORGULARI */
+        @media (max-width: 1200px) {
+            html { font-size: 55%; }
+            .home-img img { width: 35vw; }
+        }
+        @media (max-width: 991px) {
+            .header { padding: 2rem 3%; }
+            section { padding: 10rem 3% 2rem; }
+            .services { padding-bottom: 7rem; }
+            .projects { padding-bottom: 7rem; }
+            .contact { min-height: auto; }
+            .footer { padding: 2rem 3%; }
+            .home-img img { width: 45vw; }
+        }
+        @media (max-width: 768px) {
+            #menu-icon { display: block; }
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: -100%;
+                width: 100%;
+                padding: 1rem 3%;
+                background: var(--bg-color);
+                border-top: .1rem solid rgba(0,0,0, .2);
+                box-shadow: 0 .5rem 1rem rgba(0,0,0, .2);
+                transition: .3s ease-in-out;
+            }
+            .navbar.active { left: 0; }
+            .navbar a { display: block; font-size: 2rem; margin: 3rem 0; }
+            .home { flex-direction: column-reverse; text-align: center; gap: 3rem; }
+            .home-content h1 { font-size: 5rem; }
+            .home-content h3 { font-size: 2.6rem; }
+            .home-img img { width: 70vw; margin-top: 4rem; }
+            .about { flex-direction: column; text-align: center; }
+            .services h2, .projects h2 { margin-bottom: 3rem; }
+            .education .timeline::after {
+                left: 31px;
+            }
+            .education .container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .education .container::before {
+                left: 60px;
+                border: medium solid var(--text-color);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--second-bg-color) transparent transparent;
+            }
+            .education .left::after, .education .right::after {
+                left: 18px;
+            }
+            .education .right {
+                left: 0%;
+            }
+        }
+        @media (max-width: 480px) {
+            html { font-size: 50%; }
+            .contact form .input-box input { width: 100%; }
+            .home-img img { width: 80vw; }
+        }
+    </style>
+    </head>
+<body>
+    
+    <header class="header">
+        <a href="#home" class="logo">Akın <span class="gradient-text">Topal</span></a>
+        <i class="bx bx-menu" id="menu-icon"></i> 
+        <nav class="navbar">
+            <a href="#home" class="active">Ana Sayfa</a>
+            <a href="#about">Hakkımda</a>
+            <a href="#education">Eğitim & Deneyim</a>
+            <a href="#services">Hizmetler</a>
+            <a href="#projects">Projeler</a>
+            <a href="#contact">İletişim</a>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-content">
+            <h1>Merhaba, ben <span class="gradient-text">Akın</span></h1>
+            <h3>Ben bir <span class="gradient-text">Güvenlik Sistemleri Uzmanıyım.</span></h3>
+            <p>Web siteleri tasarlıyor, C# ile yazılımlar geliştiriyor ve güvenlik kameraları kuruyorum. Teknolojiyi hayatın her alanına taşıyorum.</p>
+            <div class="social-icon">
+                <a href="https://www.linkedin.com/in/akın-topal-8bbb0b389/" target="_blank">
+  <i class='bx bxl-linkedin'></i>
+</a>
+
+<a href="https://github.com/akintopal" target="_blank">
+  <i class='bx bxl-github'></i>
+</a>
+
+<a href="https://twitter.com/akintopalll" target="_blank">
+  <i class='bx bxl-twitter'></i>
+</a>
+
+<a href="https://instagram.com/akintopalll" target="_blank">
+  <i class='bx bxl-instagram'></i>
+</a>
+            </div>
+            <a href="#projects" class="btn">Projelerimi Gör</a>
+        </div>
+        <div class="home-img">
+            <img src="akintopal/akintopal.jpg" alt="Akın Topal Portre">
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-text">
+            <h2 class="heading">Hakkımda <span class="gradient-text">Ben Kimim?</span></h2>
+            <h3>Yazılım geliştir, sistemi kur, güvenliği sağla!</h3>
+            <p>Web tasarımı, C# uygulama geliştirme ve güvenlik kamerası kurulumu alanlarında profesyonel hizmet sunuyorum.
+Modern, kullanıcı dostu ve performans odaklı web siteleri geliştirirken; C# ile özel yazılımlar üretiyor, ihtiyaçlarınıza özel çözümler sunuyorum.
+Ayrıca ev ve iş yerlerine güvenlik kamerası sistemleri kurarak, alanlarınızı 7/24 koruma altına alıyorum.
+Teknoloji ve güvenliği bir araya getirerek, dijital dünyada güçlü, gerçek dünyada güvenli bir yapı oluşturuyorum.</p>
+            <a href="#contact" class="btn">Benimle İletişime Geç</a>
+        </div>
+    </section>
+
+    <section class="education" id="education">
+        <h2 class="heading">Kariyer <span class="gradient-text">Yolculuğum</span></h2>
+        <div class="timeline">
+            <div class="container right">
+                <div class="content">
+                    <div class="tag"><i class='bx bxs-graduation'></i><h2>Lise</h2></div>
+                    <div class="decription">
+                        <p><strong>Ağ İşletmenliği Ve Siber Güvenlik</strong> - Mustafa Kemal Mesleki Ve Teknik Anadolu Lisesi</p>
+                        <p>2020 - 2024</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container left">
+                <div class="content">
+                    <div class="tag"><i class='bx bxs-school'></i><h2>Stajyer Teknisyen</h2></div>
+                    <div class="decription">
+                        <p><strong>Tekno Marks Ltd.Şti.</strong> - Tekno Marks firması 2007 yılında temelleri atılmış 2016 yılında limited şirkete çevrilmiş bilişim firmasıdır.</p>
+                        <p>2023 - 2024</p>
+                    </div>
+                </div>
+            </div>
+            <div class="container right">
+                <div class="content">
+                    <div class="tag"><i class='bx bxs-briefcase'></i><h2>Üniversite</h2></div>
+                    <div class="decription">
+                        <p><strong>Bilgisayar Programcılığı</strong> - Doğu Akdeniz Üniversitesi</p>
+                        <p>2025 - 2027</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <h2 class="heading">Neler <span class="gradient-text">Yapıyorum?</span></h2>
+        <div class="services-container">
+            <div class="service-box">
+                <i class='bx bx-code-alt'></i><h3>Frontend Geliştirme</h3>
+                <p>HTML, CSS ve JavaScript (React, Vue) kullanarak, her cihaza uyumlu (responsive), hızlı ve modern web arayüzleri geliştiriyorum.</p>
+                <a href="#" class="btn">Daha Fazla</a>
+            </div>
+            <div class="service-box">
+                <i class='bx bx-server'></i><h3>Güvenlik Kamerası Kurulumu</h3>
+                <p>Güvenlik kamerası sistemleri ile evinizi, iş yerinizi ve sevdiklerinizi 7/24 koruma altına alıyoruz. Uzman ekibimiz, ihtiyaçlarınıza en uygun kamera çözümünü sunarak kurulumdan devreye almaya kadar tüm süreçleri profesyonelce yönetir. Güvenliğiniz bizim önceliğimizdir.</p>
+                <a href="#" class="btn">Daha Fazla</a>
+            </div>
+            <div class="service-box">
+                <i class='bx bx-paint'></i><h3>Program Geliştirme</h3>
+                <p>C# programlama diliyle çeşitli masaüstü ve web tabanlı uygulamalar geliştiriyorum. Verimli, güvenli ve kullanıcı dostu yazılım çözümleri üretmek için modern teknolojileri kullanarak projeleri ihtiyaçlara göre şekillendiriyorum.</p>
+                <a href="#" class="btn">Daha Fazla</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="heading">Son <span class="gradient-text">Projelerim</span></h2>
+        <div class="projects-container">
+            <div class="project-box">
+                <img src="projeler/after.jpg" alt="Proje 1">
+                <div class="project-layer">
+                    <h4>Web Sitesi Yenileme</h4>
+                    <p>Eski web sitesinin modern ve responsive bir tasarıma kavuşturulması.</p>
+                    <a href="#" class="project-detail-btn" 
+                       data-before-image="projeler/before.jpg" 
+                       data-after-image="projeler/after.jpg" 
+                       data-title="Web Sitesi Yenileme Projesi" 
+                       data-description="Müşterinin eski ve mobil uyumsuz web sitesi, modern teknolojiler kullanılarak baştan tasarlandı. Kullanıcı deneyimi iyileştirildi ve sayfa yüklenme hızları optimize edildi."
+                       data-tech="Kullanılan Teknolojiler: Figma, HTML5, CSS3, JavaScript.">
+                       <i class='bx bx-plus'></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-box">
+                <img src="projeler/cctv.jpg" alt="Proje 2">
+                <div class="project-layer">
+                    <h4>Blog Yönetim Paneli</h4><p>Yazarlar için içerik yönetim sistemi (CMS) projesi.</p>
+                    <a href="#" class="project-detail-btn" 
+                       data-after-image="projeler/cctv.jpg" 
+                       data-title="Blog Yönetim Paneli Detayları" 
+                       data-description="Bu blog yönetim paneli, yazarların kolayca içerik oluşturmasını, düzenlemesini ve yayınlamasını sağlar. Zengin metin editörü ve kategori yönetimi gibi özellikler içerir."
+                       data-tech="Kullanılan Teknolojiler: JavaScript, EJS, Node.js, PostgreSQL.">
+                       <i class='bx bx-plus'></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-box">
+                <img src="projeler/sapkali.jpg" alt="Proje 3">
+                <div class="project-layer">
+                    <h4>Hava Durumu Uygulaması</h4><p>Harici bir API kullanarak geliştirilmiş anlık hava durumu uygulaması.</p>
+                    <a href="#" class="project-detail-btn" 
+                       data-after-image="projeler/sapkali.jpg" 
+                       data-title="Hava Durumu Uygulaması Detayları" 
+                       data-description="Kullanıcının konumuna göre veya aradığı şehre göre anlık hava durumu bilgisi sunan, dinamik bir web uygulamasıdır."
+                       data-tech="Kullanılan Teknolojiler: HTML, CSS, Vanilla JavaScript, OpenWeatherMap API.">
+                       <i class='bx bx-plus'></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-box">
+                <img src="projeler/akincctv.jpg" alt="Proje 4">
+                <div class="project-layer">
+                    <h4>Tasarımcı Portfolyosu</h4><p>Minimalist ve modern bir tasarıma sahip kişisel portfolyo sitesi.</p>
+                    <a href="#" class="project-detail-btn" 
+                       data-after-image="projeler/akincctv.jpg" 
+                       data-title="Tasarımcı Portfolyosu Detayları" 
+                       data-description="Bir grafik tasarımcısının çalışmalarını sergilemesi için oluşturulmuş, animasyonlarla zenginleştirilmiş modern ve minimalist bir portfolyo sitesidir."
+                       data-tech="Kullanılan Teknolojiler: HTML, CSS, JavaScript, GSAP.">
+                       <i class='bx bx-plus'></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="heading">Bana <span class="gradient-text">Ulaşın</span></h2>
+        <form action="https://formspree.io/f/xxxxxxxx" method="POST">
+            <div class="input-box">
+                <input type="text" name="Ad Soyad" placeholder="Adınız Soyadınız" required>
+                <input type="email" name="E-posta" placeholder="E-posta Adresiniz" required>
+            </div>
+            <div class="input-box">
+                <input type="number" name="Telefon" placeholder="Telefon Numaranız">
+                <input type="text" name="Konu" placeholder="Konu">
+            </div>
+            <textarea name="Mesaj" cols="30" rows="10" placeholder="Mesajınız..." required></textarea>
+            <input type="submit" value="Mesajı Gönder" class="btn">
+        </form>
+    </section>
+
+    <div id="general-project-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            
+            <img id="modal-single-image" src="" alt="Proje Resmi" style="display: none;">
+            
+            <div class="before-after-slider" id="modal-slider" style="display: none;">
+                <img id="modal-after-image" src="" alt="After Image">
+                <div class="before-image-container">
+                    <img id="modal-before-image" src="" alt="Before Image">
+                </div>
+                <div class="slider-handle">
+                    <div class="handle-icon"><i class='bx bx-left-right-arrow-alt'></i></div>
+                </div>
+            </div>
+
+            <h2 id="modal-project-title"></h2>
+            <p id="modal-project-description"></p>
+            <p id="modal-project-tech"></p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-text">
+            <p>Copyright &copy; 2025 by Akın Topal | Tüm Hakları Saklıdır.</p>
+        </div>
+        <div class="footer-iconTop">
+            <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- MOBİL MENÜ İÇİN ---
+            const menuIcon = document.querySelector('#menu-icon');
+            const navbar = document.querySelector('.navbar');
+            menuIcon.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+                const isActive = navbar.classList.contains('active');
+                menuIcon.classList.toggle('bx-x', isActive);
+                menuIcon.classList.toggle('bx-menu', !isActive);
+            });
+
+            // --- KAYDIRDIKÇA AKTİF LİNK DEĞİŞİMİ (SCROLLSPY) ---
+            let sections = document.querySelectorAll('section');
+            let navLinks = document.querySelectorAll('header nav a');
+            window.onscroll = () => {
+                sections.forEach(sec => {
+                    let top = window.scrollY;
+                    let offset = sec.offsetTop - 150;
+                    let height = sec.offsetHeight;
+                    let id = sec.getAttribute('id');
+                    if (top >= offset && top < offset + height) {
+                        navLinks.forEach(links => {
+                            links.classList.remove('active');
+                            document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+                        });
+                    };
+                });
+                navbar.classList.remove('active');
+                menuIcon.classList.remove('bx-x');
+                menuIcon.classList.add('bx-menu');
+            };
+
+            // --- PROJE DETAY MODAL (POPUP) PENCERESİ İÇİN ---
+            const detailButtons = document.querySelectorAll('.project-detail-btn');
+            const modalOverlay = document.getElementById('general-project-modal');
+            
+            if (modalOverlay) {
+                const closeButton = modalOverlay.querySelector('.modal-close');
+                const modalSingleImage = document.getElementById('modal-single-image');
+                const modalSlider = document.getElementById('modal-slider');
+                const modalBeforeImage = document.getElementById('modal-before-image');
+                const modalAfterImage = document.getElementById('modal-after-image');
+                const modalTitle = document.getElementById('modal-project-title');
+                const modalDescription = document.getElementById('modal-project-description');
+                const modalTech = document.getElementById('modal-project-tech');
+
+                detailButtons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        
+                        const beforeImageSrc = button.getAttribute('data-before-image');
+                        const afterImageSrc = button.getAttribute('data-after-image');
+                        
+                        // İçeriği doldur
+                        modalTitle.textContent = button.getAttribute('data-title');
+                        modalDescription.textContent = button.getAttribute('data-description');
+                        modalTech.textContent = button.getAttribute('data-tech');
+
+                        // Eğer before-image varsa slider'ı, yoksa tek resmi göster
+                        if (beforeImageSrc) {
+                            modalSingleImage.style.display = 'none';
+                            modalSlider.style.display = 'block';
+                            modalBeforeImage.src = beforeImageSrc;
+                            modalAfterImage.src = afterImageSrc;
+                            // Slider'ı her açılışta sıfırla ve başlat
+                            initializeSlider(modalSlider);
+                        } else {
+                            modalSlider.style.display = 'none';
+                            modalSingleImage.style.display = 'block';
+                            modalSingleImage.src = afterImageSrc;
+                        }
+                        
+                        modalOverlay.style.display = 'flex';
+                    });
+                });
+
+                const closeModal = () => {
+                    modalOverlay.style.display = 'none';
+                };
+                closeButton.addEventListener('click', closeModal);
+                modalOverlay.addEventListener('click', (event) => {
+                    if (event.target === modalOverlay) {
+                        closeModal();
+                    }
+                });
+            }
+
+            // --- ÖNCE & SONRA (BEFORE & AFTER) SLIDER İÇİN ---
+            const initializeSlider = (slider) => {
+                const beforeImageContainer = slider.querySelector('.before-image-container');
+                const handle = slider.querySelector('.slider-handle');
+                let isDragging = false;
+                
+                // Slider'ı başlangıç pozisyonuna (ortaya) getir
+                beforeImageContainer.style.width = '50%';
+                handle.style.left = '50%';
+
+                const startDrag = (e) => {
+                    e.preventDefault();
+                    isDragging = true;
+                };
+                const stopDrag = () => {
+                    isDragging = false;
+                };
+                const onDrag = (e) => {
+                    if (!isDragging) return;
+                    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+                    if (clientX === undefined) return;
+                    const rect = slider.getBoundingClientRect();
+                    let offsetX = clientX - rect.left;
+                    if (offsetX < 0) offsetX = 0;
+                    if (offsetX > rect.width) offsetX = rect.width;
+                    const percentage = (offsetX / rect.width) * 100;
+                    handle.style.left = percentage + '%';
+                    beforeImageContainer.style.width = percentage + '%';
+                };
+                
+                // Olay dinleyicilerini her seferinde yeniden eklemek yerine, bir kere ekleyip
+                // sadece sürükleme durumunu kontrol etmek daha verimli olabilir.
+                // Ancak bu yapı daha basit ve anlaşılır.
+                handle.onmousedown = startDrag;
+                window.onmouseup = stopDrag;
+                window.onmousemove = onDrag;
+                
+                handle.ontouchstart = startDrag;
+                window.ontouchend = stopDrag;
+                window.ontouchmove = onDrag;
+            };
+        });
+    </script>
+    </body>
+</html>
